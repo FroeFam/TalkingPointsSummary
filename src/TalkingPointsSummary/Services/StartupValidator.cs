@@ -189,7 +189,8 @@ public class StartupValidator
             {
                 Content = JsonContent.Create(new
                 {
-                    url = "https://example.com",
+                    // Self-contained page so the probe does not depend on a third-party site's markup.
+                    url = "data:text/html,<h1>Example%20Domain</h1>",
                     elements = new[] { new { selector = "h1" } },
                     gotoOptions = new { waitUntil = "networkidle2", timeout = 10000 }
                 })
