@@ -5,7 +5,7 @@ description: Analyzes a set of code changes (diff, commit log, or described chan
 
 # Skill: Semver Classification
 
-**Project**: `drache42 / TalkingPointsSummary`
+**Project**: `FroeFam / TalkingPointsSummary`
 
 This skill classifies a set of changes according to [Semantic Versioning 2.0.0](https://semver.org) and reports a recommended bump with a rationale.
 
