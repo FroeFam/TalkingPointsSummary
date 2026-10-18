@@ -5,7 +5,7 @@ description: Drafts and opens a GitHub pull request for the current branch in Ta
 
 # Skill: Create Pull Request
 
-**Repo**: `drache42` / `TalkingPointsSummary`
+**Repo**: `FroeFam` / `TalkingPointsSummary`
 
 ---
 
@@ -136,14 +136,14 @@ If this succeeds, use `gh pr create` (see Step 6B).
 
 **Option C: Manual**
 If neither is available, display the PR title and body and instruct the user to open the PR manually at:
-`https://github.com/drache42/TalkingPointsSummary/compare/<head-branch>?expand=1`
+`https://github.com/FroeFam/TalkingPointsSummary/compare/<head-branch>?expand=1`
 
 ---
 
 ## Step 6A — Submit via GitHub MCP Tool
 
 Use `mcp_github_create_pull_request` with:
-- `owner`: `drache42`
+- `owner`: `FroeFam`
 - `repo`: `TalkingPointsSummary`
 - `title`: the approved title
 - `body`: the approved PR body
@@ -157,7 +157,7 @@ Use `mcp_github_create_pull_request` with:
 
 ```powershell
 gh pr create `
-  --repo drache42/TalkingPointsSummary `
+  --repo FroeFam/TalkingPointsSummary `
   --title "<approved title>" `
   --body "<approved body>" `
   --base main `
