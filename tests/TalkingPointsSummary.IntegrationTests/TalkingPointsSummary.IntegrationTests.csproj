@@ -29,7 +29,8 @@
 
   <ItemGroup>
     <!-- Test-only transitive dependency via WireMock.Net -> Microsoft.AspNetCore.Http 2.3.9 -> WebUtilities 2.3.0
-         (denial of service, patched in 2.3.14). WireMock.Net 2.30.0 still pulls 2.3.0, so there is no upstream fix yet.
+         (denial of service, patched in 2.3.14). Both WireMock.Net 2.21.0 (pinned here) and 2.30.0 (latest when this was
+         written) pull in 2.3.0, so there is no upstream fix yet.
          Remove this suppression once WireMock.Net ships a version that no longer depends on the vulnerable package. -->
     <NuGetAuditSuppress Include="https://github.com/advisories/GHSA-6527-9fp8-r4x6" />
   </ItemGroup>
