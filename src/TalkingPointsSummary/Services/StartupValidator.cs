@@ -228,7 +228,7 @@ public class StartupValidator
             using var client = new SmtpClient();
             await client.ConnectAsync(_smtp.Host, _smtp.Port, SecureSocketOptions.Auto, ct);
 
-            if (!client.Capabilities.HasFlag(SmtpCapabilities.Authentication))
+            if (!client.Capabilities.Contains(SmtpCapability.Authentication))
             {
                 await client.DisconnectAsync(true, ct);
                 return new ValidationCheckResult("SMTP connectivity", CheckStatus.Warn,

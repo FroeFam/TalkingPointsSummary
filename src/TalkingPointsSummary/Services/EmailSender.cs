@@ -1,3 +1,4 @@
+using MailKit;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.Extensions.Logging;
@@ -53,7 +54,7 @@ public class EmailSender : IEmailSender
         using var client = new SmtpClient();
         await client.ConnectAsync(_smtp.Host, _smtp.Port, SecureSocketOptions.Auto, ct);
 
-        if (client.Capabilities.HasFlag(SmtpCapabilities.Authentication)
+        if (client.Capabilities.Contains(SmtpCapability.Authentication)
             && !string.IsNullOrWhiteSpace(_smtp.Username))
         {
             await client.AuthenticateAsync(_smtp.Username, _smtp.Password, ct);
