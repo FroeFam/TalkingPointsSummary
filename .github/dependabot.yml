@@ -10,6 +10,25 @@ updates:
         update-types:
           - minor
           - patch
+    # Packages whose major version tracks the .NET major. The solution targets
+    # net10.0, so hold these at 10.x until a deliberate .NET 11 migration (which
+    # also bumps TargetFramework, global.json, and the infra Dockerfiles, and
+    # removes these ignores). Independent packages still receive major bumps.
+    ignore:
+      - dependency-name: "Microsoft.EntityFrameworkCore*"
+        versions: [">=11"]
+      - dependency-name: "Microsoft.Extensions.*"
+        versions: [">=11"]
+      - dependency-name: "System.CommandLine"
+        versions: [">=3"]
+      - dependency-name: "System.Security.Cryptography.Pkcs"
+        versions: [">=11"]
+      - dependency-name: "Npgsql.EntityFrameworkCore.PostgreSQL"
+        versions: [">=11"]
+      - dependency-name: "Serilog.Extensions.Logging"
+        versions: [">=11"]
+      - dependency-name: "Serilog.Settings.Configuration"
+        versions: [">=11"]
 
   - package-ecosystem: docker
     directory: /infra
@@ -21,6 +40,12 @@ updates:
         update-types:
           - minor
           - patch
+    # Keep the SDK and runtime images on the .NET major the solution targets.
+    ignore:
+      - dependency-name: "dotnet/sdk"
+        versions: [">=11"]
+      - dependency-name: "dotnet/aspnet"
+        versions: [">=11"]
 
   - package-ecosystem: github-actions
     directory: /
