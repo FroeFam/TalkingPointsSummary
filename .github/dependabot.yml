@@ -41,10 +41,17 @@ updates:
           - minor
           - patch
     # Keep the SDK and runtime images on the .NET major the solution targets.
+    # Both name forms are listed: Dependabot reports these images as
+    # "dotnet/sdk" / "dotnet/aspnet" today, but registry-qualified names are
+    # also how it can match an image reference as written in a FROM line.
     ignore:
       - dependency-name: "dotnet/sdk"
         versions: [">=11"]
       - dependency-name: "dotnet/aspnet"
+        versions: [">=11"]
+      - dependency-name: "mcr.microsoft.com/dotnet/sdk"
+        versions: [">=11"]
+      - dependency-name: "mcr.microsoft.com/dotnet/aspnet"
         versions: [">=11"]
 
   - package-ecosystem: github-actions
