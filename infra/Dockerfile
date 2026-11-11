@@ -18,7 +18,7 @@ RUN dotnet publish -c Release -o /app/publish --no-restore \
     "/p:InformationalVersion=${VERSION}+sha.${COMMIT_SHA}"
 
 # Runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS runtime
+FROM mcr.microsoft.com/dotnet/aspnet:11.0 AS runtime
 WORKDIR /app
 RUN apt-get update \
 	&& apt-get install -y --no-install-recommends libgssapi-krb5-2 \
