@@ -1,11 +1,12 @@
 using Aspire.Hosting;
 using Aspire.Hosting.ApplicationModel;
+using Aspire.Hosting.Dotnet;
 using Microsoft.Extensions.Configuration;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
-IResourceBuilder<ProjectResource> worker;
-IResourceBuilder<ProjectResource> admin;
+IResourceBuilder<DotnetProjectResource> worker;
+IResourceBuilder<DotnetProjectResource> admin;
 
 if (builder.Configuration.GetValue<bool>("ManagePostgres", true))
 {
@@ -20,14 +21,14 @@ if (builder.Configuration.GetValue<bool>("ManagePostgres", true))
 
     var db = postgres.AddDatabase("talkingpoints");
 
-    worker = builder.AddProject<Projects.TalkingPointsSummary>("worker")
+    worker = builder.AddDotnetProject("worker", "../TalkingPointsSummary/TalkingPointsSummary.csproj")
         .WithReference(db)
         .WaitFor(db)
         .WithEnvironment("ConnectionStrings__TalkingPoints", db)
         .WithEnvironment("ASPNETCORE_URLS", "http://127.0.0.1:5101")
         .WithEnvironment("DebugFeatures__Enabled", "true");
 
-    admin = builder.AddProject<Projects.TalkingPointsSummary_Admin>("admin")
+    admin = builder.AddDotnetProject("admin", "../TalkingPointsSummary.Admin/TalkingPointsSummary.Admin.csproj")
         .WithReference(db)
         .WaitFor(db)
         .WithEnvironment("ConnectionStrings__TalkingPoints", db)
@@ -40,12 +41,12 @@ else
     //   "ConnectionStrings": { "TalkingPoints": "Host=...;Database=...;Username=...;Password=..." }
     var postgres = builder.AddConnectionString("TalkingPoints");
 
-    worker = builder.AddProject<Projects.TalkingPointsSummary>("worker")
+    worker = builder.AddDotnetProject("worker", "../TalkingPointsSummary/TalkingPointsSummary.csproj")
         .WithEnvironment("ConnectionStrings__TalkingPoints", postgres)
         .WithEnvironment("ASPNETCORE_URLS", "http://127.0.0.1:5101")
         .WithEnvironment("DebugFeatures__Enabled", "true");
 
-    admin = builder.AddProject<Projects.TalkingPointsSummary_Admin>("admin")
+    admin = builder.AddDotnetProject("admin", "../TalkingPointsSummary.Admin/TalkingPointsSummary.Admin.csproj")
         .WithEnvironment("ConnectionStrings__TalkingPoints", postgres)
         .WithEnvironment("DebugFeatures__Enabled", "true")
         .WithEnvironment("WorkerDebugBaseUrl", "http://127.0.0.1:5101/");
